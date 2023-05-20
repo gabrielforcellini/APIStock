@@ -2,6 +2,16 @@ import "reflect-metadata"
 import { DataSource } from "typeorm"
 import { User } from "./entity/User"
 import * as dotenv from 'dotenv';
+import { Address } from './entity/Address/Address';
+import { District } from './entity/Address/District';
+import { City } from './entity/Address/City';
+import { State } from './entity/Address/State';
+import { Country } from './entity/Address/Country';
+import { Supplier } from './entity/Supplier';
+import { Stock } from './entity/Stock';
+import { Product } from './entity/Product';
+import { Establishment } from './entity/Establishment';
+import { Category } from './entity/Category';
 
 dotenv.config();
 
@@ -24,7 +34,8 @@ export const AppDataSource = new DataSource({
     database: database,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, Address, District, City, State, Country, Supplier, Stock, 
+        Product, Establishment, Category],
     migrations: [],
     subscribers: [],
 });
