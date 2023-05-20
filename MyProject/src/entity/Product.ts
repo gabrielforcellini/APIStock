@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import { Category } from "./Category";
 import { Supplier } from "./Supplier";
 
-@Entity({ name: "produto"})
+@Entity({ name: "product"})
 export class Product {
     @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
