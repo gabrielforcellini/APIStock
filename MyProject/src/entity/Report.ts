@@ -1,25 +1,25 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity({ name: "relatorio"})
 export class Report {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
 
-    @Column()
+    @Column({ type: "character varying", length: 50})
     tipo!: string
 
-    @Column()
+    @Column({ type: "date"})
     data_inicio!: Date
 
-    @Column()
+    @Column({ type: "date"})
     data_fim!: Date
 
-    @Column()
+    @Column({ type: "text"})
     descricao?: string
 
-    @Column()
+    @Column({ type: "bytea"})
     arquivo?: null
 
-    @Column()
+    @Column({ type: "timestamp without time zone"})
     data_atualizacao?: Date
 }
