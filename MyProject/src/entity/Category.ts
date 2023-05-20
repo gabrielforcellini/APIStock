@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity({ name: "category"})
 export class Category {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer"})
     id!: number
 
     @Column({ type: "character varying", length: 20})

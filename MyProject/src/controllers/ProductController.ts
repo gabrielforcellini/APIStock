@@ -32,9 +32,9 @@ export class ProductController {
     product.brand = brand;
 
     try {
-      await AppDataSource.manager.save(product);
+      const newProduct = await AppDataSource.manager.save(product);
       res.status(201).json({
-        message: "Registered product!",
+        newProduct,
         success: true
       });
     } catch (error) {

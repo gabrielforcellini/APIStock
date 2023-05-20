@@ -22,10 +22,10 @@ export class UserController {
     user.address = address;
 
     try {
-      await AppDataSource.manager.save(user);
-      res.status(201).json({ message: "Registered user!" });
+      const newUser = await AppDataSource.manager.save(user);
+      res.status(201).json({ newUser, success: true });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(500).json({ error, success: false });
     };
   };
 
@@ -95,4 +95,4 @@ export class UserController {
       res.status(500).json({ error, success: false });
     };
   };
-}
+};

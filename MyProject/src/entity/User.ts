@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from "typeorm"
 import { Address } from "./Address/Address"
 
 @Entity({ name: "user"})
 export class User {
 
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer"})
     id!: number
 
     @Column({ type: "character varying", length: 50})

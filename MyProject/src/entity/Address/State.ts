@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from "typeorm";
 import { Country } from "./Country";
 
-@Entity({ name: "state"})
+@Entity({ name: "state" })
 export class State {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100})
+    @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @Column({ type: "character varying", length: 5, nullable: true})
+    @Column({ type: "character varying", length: 5, nullable: true })
     initials?: string
 
     @OneToOne(() => Country)

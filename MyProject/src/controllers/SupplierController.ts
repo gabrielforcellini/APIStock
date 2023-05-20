@@ -24,9 +24,9 @@ export class SupplierController {
     supplier.active_status = active_status;
 
     try {
-      await AppDataSource.manager.save(supplier);
+      const newSupplier = await AppDataSource.manager.save(supplier);
       res.status(201).json({
-        message: "Registered supplier!",
+        newSupplier,
         success: true
       });
     } catch (error) {

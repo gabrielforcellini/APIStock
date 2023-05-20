@@ -1,10 +1,10 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Category } from "./Category";
 import { Supplier } from "./Supplier";
 
 @Entity({ name: "product" })
 export class Product {
-    @PrimaryGeneratedColumn({ type: "integer" })
+    @PrimaryColumn({ type: "integer"})
     id!: number
 
     @Column({ type: "character varying", length: 50 })

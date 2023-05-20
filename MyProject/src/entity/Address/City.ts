@@ -1,12 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from "typeorm";
 import { State } from "./State";
 
-@Entity({ name: "city"})
+@Entity({ name: "city" })
 export class City {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100})
+    @Column({ type: "character varying", length: 100 })
     name!: string
 
     @OneToOne(() => State)

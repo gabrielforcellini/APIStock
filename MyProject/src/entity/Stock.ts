@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from "typeorm";
+import { Entity, Column, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Establishment } from "./Establishment";
 import { Category } from "./Category";
 
 @Entity({ name: "stock"})
 export class Stock {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer"})
     id!: number
 
     @OneToMany(() => Establishment, (establishment) => establishment.id)
