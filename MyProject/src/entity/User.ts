@@ -24,9 +24,9 @@ export class User {
     @Column({ type: "integer"})
     endereco_id!: number
 
-    @Column({ type: "timestamp without time zone"})
+    @Column({ type: "timestamp without time zone", nullable: true})
     data_criacao?: Date
 
-    @Column({ type: "timestamp without time zone"})
+    @Column({ type: "timestamp without time zone", nullable: true})
     data_atualizacao?: Date
 };

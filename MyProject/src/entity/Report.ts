@@ -14,12 +14,12 @@ export class Report {
     @Column({ type: "date"})
     data_fim!: Date
 
-    @Column({ type: "text"})
+    @Column({ type: "text", nullable: true})
     descricao?: string
 
-    @Column({ type: "bytea"})
+    @Column({ type: "bytea", nullable: true})
     arquivo?: null
 
-    @Column({ type: "timestamp without time zone"})
+    @Column({ type: "timestamp without time zone", nullable: true})
     data_atualizacao?: Date
-}
+};
