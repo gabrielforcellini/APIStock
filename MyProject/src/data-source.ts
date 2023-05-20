@@ -10,11 +10,13 @@ const {
     password,
     database,
     host,
-    port
+    port,
 } = process.env;
 
+const type = process.env.database as 'mysql' | 'mariadb' | 'postgres';
+
 export const AppDataSource = new DataSource({
-    type: "postgres",
+    type: type,
     host: host,
     port: parseInt(port),
     username: username,
