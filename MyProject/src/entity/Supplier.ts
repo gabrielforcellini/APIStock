@@ -1,0 +1,30 @@
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Address } from "./Address/Address";
+
+@Entity({ name: "supplier"})
+export class Supplier {
+    @PrimaryGeneratedColumn({ type: "integer"})
+    id!: number
+
+    @Column({ type: "character varying", length: 100})
+    name!: string
+
+    @Column({ type: "character varying", length: 20, nullable: true})
+    telephone?: string
+
+    @Column({ type: "character varying", length: 100, nullable: true})
+    mail?: string
+
+    @OneToOne(() => Address, (address) => address.id)
+    @JoinColumn()
+    address!: Address
+
+    @Column({ type: "character varying", length: 20})
+    cnpj!: string
+
+    @Column({ type: "character varying", length: 100, nullable: true})
+    fantasy_name?: string
+
+    @Column({ type: "boolean", nullable: true})
+    active_status?: boolean
+};

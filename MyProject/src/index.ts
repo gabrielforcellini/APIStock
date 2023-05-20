@@ -1,20 +1,47 @@
 import { AppDataSource } from "./data-source"
-import { User } from "./entity/User"
+import express, { Request, Response } from "express";
+import cors from "cors";
+import * as dotenv from "dotenv";
+// Api routes
+import userRouter from './routes/userRoutes';
+import supplierRouter from './routes/supplierRoutes';
+import productRouter from './routes/productRoutes';
+import categoryRoutes from './routes/categoryRoutes';
+import establishmentRouter from './routes/establishmentRoutes';
+
+const app = express();
+
+dotenv.config();
+const { api_port } = process.env;
 
 AppDataSource.initialize().then(async () => {
 
-    console.log("Inserting a new user into the database...")
-    const user = new User()
-    user.firstName = "Timber"
-    user.lastName = "Saw"
-    user.age = 25
-    await AppDataSource.manager.save(user)
-    console.log("Saved a new user with id: " + user.id)
+    console.log("Connected to the database");
 
-    console.log("Loading users from the database...")
-    const users = await AppDataSource.manager.find(User)
-    console.log("Loaded users: ", users)
+    app.use(
+        express.urlencoded({ extended: true })
+    );
 
-    console.log("Here you can setup and run express / fastify / any other framework.")
+    app.use(express.json());
 
-}).catch(error => console.log(error))
+    // Solve cors
+    app.use(cors());
+
+    app.get("/", (req: Request, res: Response) => {
+        res.json({ message: "API to Projeto Integrador I" });
+    });
+
+    app.use("/user", userRouter);
+
+    app.use("/supplier", supplierRouter);
+
+    app.use("/product", productRouter);
+
+    app.use("/establishment", establishmentRouter);
+
+    app.use("/category", categoryRoutes);
+
+    app.listen(api_port);
+    console.log(`API listening on port ${api_port}`);
+
+}).catch(error => console.log(error));

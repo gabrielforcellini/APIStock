@@ -1,18 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
+import { Address } from "./Address/Address"
 
-@Entity()
+@Entity({ name: "user"})
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn({ type: "integer"})
+    id!: number
 
-    @Column()
-    firstName: string
+    @Column({ type: "character varying", length: 50})
+    name!: string
 
-    @Column()
-    lastName: string
+    @Column({ type: "character varying", length: 50})
+    lastname!: string
 
-    @Column()
-    age: number
+    @Column({ type: "character varying", length: 50})
+    mail!: string
 
-}
+    @Column({ type: "character varying", length: 100})
+    password!: string
+
+    @Column({ type: "character varying", length: 20})
+    telephone!: string
+
+    @OneToOne(() => Address, (address) => address.id)
+    @JoinColumn() 
+    address: Address
+
+    @Column({ type: "timestamp without time zone", nullable: true})
+    create_date?: Date
+
+    @Column({ type: "timestamp without time zone", nullable: true})
+    update_date?: Date
+};
