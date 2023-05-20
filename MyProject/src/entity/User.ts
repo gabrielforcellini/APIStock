@@ -7,12 +7,39 @@ export class User {
     id: number
 
     @Column()
-    firstName: string
+    nome: string
 
     @Column()
-    lastName: string
+    sobrenome: string
 
     @Column()
-    age: number
+    email: string
+
+    @Column()
+    senha: string
+
+    @Column()
+    telefone: string
+
+    @Column()
+    endereco: string
+
+    @Column()
+    cidade: string
+
+    @Column()
+    estado: string
+
+    @Column()
+    pais: string
+
+    @Column()
+    cep: string
+
+    @Column()
+    data_criacao: Date
+
+    @Column()
+    data_atualizacao: Date
 
 }
