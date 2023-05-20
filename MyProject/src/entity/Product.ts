@@ -22,11 +22,11 @@ export class Product {
     @Column({ type: "numeric", length:10, scale: 2})
     sale_price!: number
 
-    @OneToOne(()=> Category)
+    @OneToOne(()=> Category, (category) => category.id)
     @JoinColumn()
     category!: Category
 
-    @OneToOne(()=> Supplier)
+    @OneToMany(()=> Supplier, (supplier) => supplier.id)
     @JoinColumn()
     supplier!: Supplier
 

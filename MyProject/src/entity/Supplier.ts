@@ -15,7 +15,7 @@ export class Supplier {
     @Column({ type: "character varying", length: 100, nullable: true})
     mail?: string
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, (address) => address.id)
     @JoinColumn()
     address!: Address
 

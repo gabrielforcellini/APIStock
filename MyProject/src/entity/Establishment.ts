@@ -12,7 +12,7 @@ export class Establishment {
     @Column({ type: "character varying", length: 50})
     code!: string
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, (address) => address.id)
     @JoinColumn()
     address: Address
 };

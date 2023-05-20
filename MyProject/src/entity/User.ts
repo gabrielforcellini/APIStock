@@ -22,7 +22,7 @@ export class User {
     @Column({ type: "character varying", length: 20})
     telephone!: string
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, (address) => address.id)
     @JoinColumn() 
     address: Address
 
