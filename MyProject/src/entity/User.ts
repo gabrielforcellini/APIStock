@@ -1,34 +1,32 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
-@Entity()
+@Entity({ name: "usuario"})
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn({ type: "integer"})
+    id!: number
 
-    @Column()
-    nome: string
+    @Column({ type: "character varying", length: 50})
+    nome!: string
 
-    @Column()
-    sobrenome: string
+    @Column({ type: "character varying", length: 50})
+    sobrenome!: string
 
-    @Column()
-    email: string
+    @Column({ type: "character varying", length: 50})
+    email!: string
 
-    @Column()
-    senha: string
+    @Column({ type: "character varying", length: 100})
+    senha!: string
 
-    @Column()
-    telefone: string
+    @Column({ type: "character varying", length: 20})
+    telefone!: string
 
-    @Column()
-    endereco: string
+    @Column({ type: "integer"})
+    endereco_id!: number
 
-    @Column()
-    cidade: string
+    @Column({ type: "timestamp without time zone"})
+    data_criacao?: Date
 
-    @Column()
-    estado: string
-    
-
-}
+    @Column({ type: "timestamp without time zone"})
+    data_atualizacao?: Date
+};
