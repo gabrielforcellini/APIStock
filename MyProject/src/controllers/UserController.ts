@@ -75,7 +75,7 @@ export class UserController {
       userToUpdate.password = password;
       userToUpdate.address = address;
       await userRepository.save(userToUpdate);
-      res.status(200).json({ userRepository, success: true });
+      res.status(200).json({ userToUpdate, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
     };

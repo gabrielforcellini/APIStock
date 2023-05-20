@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 import userRouter from './routes/userRoutes';
 import supplierRouter from './routes/supplierRoutes';
 import productRouter from './routes/productRoutes';
+import categoryRoutes from './routes/categoryRoutes';
 import establishmentRouter from './routes/establishmentRoutes';
 
 const app = express();
@@ -37,6 +38,8 @@ AppDataSource.initialize().then(async () => {
     app.use("/product", productRouter);
 
     app.use("/establishment", establishmentRouter);
+
+    app.use("/category", categoryRoutes);
 
     app.listen(api_port);
     console.log(`API listening on port ${api_port}`);
