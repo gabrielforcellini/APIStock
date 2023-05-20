@@ -5,23 +5,15 @@ import { Establishment } from '../entity/Establishment';
 export class EstablishmentController {
   static async register(req: Request, res: Response) {
     const {
-      nome,
-      nome_fonetica,
-      descricao,
-      cnpj,
-      celular,
-      email,
-      endereco_id,
+      name,
+      code,
+      address,
     } = req.body;
 
     const establishment = new Establishment();
-    establishment.nome = nome;
-    establishment.descricao = descricao;
-    establishment.nome_fonetica = nome_fonetica;
-    establishment.cnpj = cnpj;
-    establishment.celular = celular;
-    establishment.email = email;
-    establishment.endereco_id = endereco_id;
+    establishment.name = name;
+    establishment.code = code;
+    establishment.address = address
 
     try {
       await AppDataSource.manager.save(establishment);
@@ -57,13 +49,9 @@ export class EstablishmentController {
     const id = req.params.id;
 
     const {
-      nome,
-      nome_fonetica,
-      descricao,
-      cnpj,
-      celular,
-      email,
-      endereco_id,
+      name,
+      code,
+      address,
     } = req.body;
 
     try {
@@ -72,13 +60,9 @@ export class EstablishmentController {
         id: parseInt(id)
       });
 
-      establishmentToUpdate.nome = nome;
-      establishmentToUpdate.descricao = descricao;
-      establishmentToUpdate.nome_fonetica = nome_fonetica;
-      establishmentToUpdate.cnpj = cnpj;
-      establishmentToUpdate.celular = celular;
-      establishmentToUpdate.email = email;
-      establishmentToUpdate.endereco_id = endereco_id;
+      establishmentToUpdate.name = name;
+      establishmentToUpdate.code = code;
+      establishmentToUpdate.address = address;
 
       await establishmentRepository.save(establishmentToUpdate);
       res.status(200).json({ establishmentToUpdate, success: true });

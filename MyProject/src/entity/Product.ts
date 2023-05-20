@@ -23,12 +23,16 @@ export class Product {
     sale_price!: number
 
     @OneToOne(()=> Category, (category) => category.id)
-    @JoinColumn()
     category!: Category
 
     @OneToMany(()=> Supplier, (supplier) => supplier.id)
-    @JoinColumn()
     supplier!: Supplier
+
+    @Column({ type: "character varying", length: 50, nullable: true})
+    brand?: string
+
+    @Column({ type: "boolean", nullable: true})
+    active_status?: boolean
 
     @Column({ type: "date", nullable: true})
     create_date?: Date
