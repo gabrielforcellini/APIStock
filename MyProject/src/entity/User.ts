@@ -4,42 +4,27 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    nome: string
+    nome!: string
 
     @Column()
-    sobrenome: string
+    sobrenome!: string
 
     @Column()
-    email: string
+    email!: string
 
     @Column()
-    senha: string
+    senha!: string
 
     @Column()
-    telefone: string
+    telefone!: string
 
     @Column()
-    endereco: string
+    data_criacao?: Date
 
     @Column()
-    cidade: string
+    data_atualizacao?: Date
 
-    @Column()
-    estado: string
-
-    @Column()
-    pais: string
-
-    @Column()
-    cep: string
-
-    @Column()
-    data_criacao: Date
-
-    @Column()
-    data_atualizacao: Date
-
-}
+};
