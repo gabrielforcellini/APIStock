@@ -6,21 +6,21 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const {
-    dbuser,
-    password,
+    db_user,
+    db_password,
     database,
-    host,
-    port,
+    db_host,
+    db_port,
 } = process.env;
 
-const type = process.env.type as 'mysql' | 'mariadb' | 'postgres';
+const db_type = process.env.db_type as 'mysql' | 'mariadb' | 'postgres';
 
 export const AppDataSource = new DataSource({
-    type: type,
-    host: host,
-    port: parseInt(port),
-    username: dbuser,
-    password: password,
+    type: db_type,
+    host: db_host,
+    port: parseInt(db_port),
+    username: db_user,
+    password: db_password,
     database: database,
     synchronize: true,
     logging: false,
