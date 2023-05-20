@@ -1,10 +1,12 @@
 import { AppDataSource } from "./data-source"
-import { User } from "./entity/User"
 import express, { Request, Response } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 // Api routes
 import userRouter from './routes/userRoutes';
+import supplierRouter from './routes/supplierRoutes';
+import productRouter from './routes/productRoutes';
+import establishmentRouter from './routes/establishmentRoutes';
 
 const app = express();
 
@@ -13,7 +15,7 @@ const { api_port } = process.env;
 
 AppDataSource.initialize().then(async () => {
 
-    console.log("Conectado ao banco");
+    console.log("Connected to the database");
 
     app.use(
         express.urlencoded({ extended: true })
@@ -25,12 +27,18 @@ AppDataSource.initialize().then(async () => {
     app.use(cors());
 
     app.get("/", (req: Request, res: Response) => {
-        res.json({ message: "API para Projeto Integrador I" });
+        res.json({ message: "API to Projeto Integrador I" });
     });
 
     app.use("/user", userRouter);
 
+    app.use("/supplier", supplierRouter);
+
+    app.use("/product", productRouter);
+
+    app.use("/establishment", establishmentRouter);
+
     app.listen(api_port);
-    console.log(`API escutando na porta ${api_port}`);
+    console.log(`API listening on port ${api_port}`);
 
 }).catch(error => console.log(error));
