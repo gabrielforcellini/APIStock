@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
-@Entity()
+@Entity("usuario")
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -21,10 +21,10 @@ export class User {
     @Column()
     telefone!: string
 
-    @Column()
+    @Column({ nullable: true })
     data_criacao?: Date
 
-    @Column()
+    @Column({ nullable: true })
     data_atualizacao?: Date
 
 };
