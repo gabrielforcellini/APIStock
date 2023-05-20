@@ -3,6 +3,8 @@ import { User } from "./entity/User"
 import express, { Request, Response } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
+// Api routes
+import userRouter from './routes/userRoutes';
 
 const app = express();
 
@@ -36,6 +38,8 @@ AppDataSource.initialize().then(async () => {
     app.get("/", (req: Request, res: Response) => {
         res.json({ message: "API para Projeto Integrador I" });
     });
+
+    app.use("/user", userRouter);
 
     app.listen(api_port);
     console.log(`API escutando na porta ${api_port}`);
