@@ -33,4 +33,4 @@ AppDataSource.initialize().then(async () => {
     app.listen(api_port);
     console.log(`API escutando na porta ${api_port}`);
 
-}).catch(error => console.log(error))
+}).catch(error => console.log(error));
