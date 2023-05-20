@@ -5,17 +5,23 @@ import { Request, Response } from 'express';
 export class SupplierController {
   static async register(req: Request, res: Response) {
     const {
-      nome,
-      endereco_id,
-      observacoes,
+      name,
+      telephone,
+      mail,
+      address,
+      cnpj,
+      fantasy_name,
+      active_status
     } = req.body;
 
     const supplier = new Supplier();
-    supplier.nome = nome;
-    supplier.endereco_id = endereco_id;
-    if (observacoes) {
-      supplier.observacoes = observacoes;
-    };
+    supplier.name = name;
+    supplier.telephone = telephone;
+    supplier.mail = mail;
+    supplier.address = address;
+    supplier.cnpj = cnpj;
+    supplier.fantasy_name = fantasy_name;
+    supplier.active_status = active_status;
 
     try {
       await AppDataSource.manager.save(supplier);
@@ -54,9 +60,8 @@ export class SupplierController {
     const id = req.params.id;
 
     const {
-      nome,
-      endereco_id,
-      observacoes
+      name,
+      address
     } = req.body;
 
     try {
@@ -64,9 +69,8 @@ export class SupplierController {
       const supplierToUpdate = await supplierRepository.findOneBy({
         id: parseInt(id)
       });
-      supplierToUpdate.nome = nome;
-      supplierToUpdate.endereco_id = endereco_id;
-      supplierToUpdate.observacoes = observacoes;
+      supplierToUpdate.name = name;
+      supplierToUpdate.address = address;
       await supplierRepository.save(supplierToUpdate);
       res.status(200).json({ supplierToUpdate, success: true });
     } catch (error) {

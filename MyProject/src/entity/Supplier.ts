@@ -7,7 +7,7 @@ export class Supplier {
     id!: number
 
     @Column({ type: "character varying", length: 100})
-    nome!: string
+    name!: string
 
     @Column({ type: "character varying", length: 20, nullable: true})
     telephone?: string
@@ -18,6 +18,9 @@ export class Supplier {
     @OneToOne(() => Address, (address) => address.id)
     @JoinColumn()
     address!: Address
+
+    @Column({ type: "character varying", length: 20})
+    cnpj!: string
 
     @Column({ type: "character varying", length: 100, nullable: true})
     fantasy_name?: string
