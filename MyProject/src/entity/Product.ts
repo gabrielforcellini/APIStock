@@ -1,52 +1,38 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from "./Category";
+import { Supplier } from "./Supplier";
 
-@Entity({ name: "produto"})
+@Entity({ name: "product"})
 export class Product {
     @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
 
     @Column({ type: "character varying", length: 50})
-    nome!: string
+    name!: string
 
-    @Column({type: "text", nullable: true})
-    descricao?: string
+    @Column({type: "character varying", length: 25, nullable: true})
+    part_number?: string
 
     @Column({ type: "character varying", length:50, nullable: true})
-    categoria?: string
+    bar_code?: string
 
-    @Column({ type: "numeric", length:10, scale: 2, nullable: true})
-    preco_compra?: number
+    @Column({ type: "numeric", length:10, scale: 2})
+    buy_price!: number
 
-    @Column({ type: "numeric", length:10, scale: 2, nullable: true})
-    preco_venda?: number
+    @Column({ type: "numeric", length:10, scale: 2})
+    sale_price!: number
 
-    @Column({ type: "integer", nullable: true})
-    quantidade_estoque?: number
+    @OneToOne(()=> Category)
+    @JoinColumn()
+    category!: Category
 
-    @Column({ type: "character varying", length: 20, nullable: true})
-    unidade_medida?: string
+    @OneToOne(()=> Supplier)
+    @JoinColumn()
+    supplier!: Supplier
 
-    @Column({ type: "integer", nullable: true})
-    fornecedor_id?: number
+    @Column({ type: "date", nullable: true})
+    create_date?: Date
 
-    @Column({ type: "character varying", length: 50, nullable: true})
-    codigo_barras?: string
-
-    @Column({ type: "timestamp without time zone", nullable: true})
-    data_criacao?: Date
-
-    @Column({ type: "timestamp without time zone", nullable: true})
-    data_atualizacao?: Date
-
-    @Column({ type: "character varying", length: 50, nullable: true})
-    marca?: string
-
-    @Column({ type: "boolean", nullable: true})
-    item_consumo?: boolean
-
-    @Column({ type: "boolean", nullable: true})
-    item_venda?: boolean
-
-    @Column({ type: "character varying", length: 20, nullable: true})
-    status?: string
+    @Column({ type: "date", nullable: true})
+    update_date?: Date
 };
