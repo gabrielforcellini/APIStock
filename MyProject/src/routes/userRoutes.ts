@@ -29,4 +29,17 @@ userRouter.post("/create", async (req: Request, res: Response) => {
   };
 });
 
+// FindOne
+userRouter.get("/find-one/:id", async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+    const user = await userRepository.findOneBy({ id: parseInt(id) });
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
 export default userRouter;
