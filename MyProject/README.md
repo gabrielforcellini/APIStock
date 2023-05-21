@@ -43,8 +43,20 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### User
 
 - POST /user/create
-- GET /user/:id
-- GET /user/find-one
+Example request:
+
+```json
+{
+    "name": "Joao",
+    "lastname": "Silva",
+    "mail": "joao@gmail.com",
+    "telephone": "48999999999",
+    "password": "******",
+    "address": 1
+}
+
+- GET /user/`id`
+- GET /user/find-one/`id`
 - GET /user/find-all
 - PATCH /user/`id`
 - DELETE /user/`id`
@@ -52,6 +64,19 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### Supplier
 
 - POST /supplier/create
+Example request:
+
+```json
+{
+    "name": "Joao",
+    "telephone": "48999999999",
+    "mail": "joao@gmail.com",
+    "address": 1,
+    "cnpj": "52.753.874/0001-12",
+    "fantasy_name": "joaodasilvafantasia",
+    "active_status": true
+}
+
 - GET /supplier/`id`
 - GET /supplier/find-one
 - GET /supplier/find-all
@@ -61,6 +86,18 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### Product
 
 - POST /product/create
+Example request:
+
+```json
+{
+    "name": "Joao",
+    "lastname": "Silva",
+    "mail": "joao@gmail.com",
+    "telephone": "48999999999",
+    "password": "******",
+    "address": 1
+}
+
 - GET /product/`id`
 - GET /product/find-one
 - GET /product/find-all
@@ -70,6 +107,18 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### Establishment
 
 - POST /establishment/create
+Example request:
+
+```json
+{
+    "name": "Joao",
+    "lastname": "Silva",
+    "mail": "joao@gmail.com",
+    "telephone": "48999999999",
+    "password": "******",
+    "address": 1
+}
+
 - GET /establishment/`id`
 - GET /establishment/find-one
 - GET /establishment/find-all
@@ -79,6 +128,17 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### Category
 
 - POST /category/create
+Example request:
+
+```json
+{
+    "name": "Joao",
+    "lastname": "Silva",
+    "mail": "joao@gmail.com",
+    "telephone": "48999999999",
+    "password": "******",
+    "address": 1
+}
 - GET /category/`id`
 - GET /category/find-one
 - GET /category/find-all
