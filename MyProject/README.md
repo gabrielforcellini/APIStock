@@ -54,6 +54,7 @@ Example request:
     "password": "******",
     "address": 1
 }
+```
 
 - GET /user/`id`
 - GET /user/find-one/`id`
@@ -76,6 +77,7 @@ Example request:
     "fantasy_name": "joaodasilvafantasia",
     "active_status": true
 }
+```
 
 - GET /supplier/`id`
 - GET /supplier/find-one
@@ -90,13 +92,19 @@ Example request:
 
 ```json
 {
-    "name": "Joao",
-    "lastname": "Silva",
-    "mail": "joao@gmail.com",
-    "telephone": "48999999999",
-    "password": "******",
-    "address": 1
+    "name": "faróis de milha",
+    "part_number": "1234",
+    "bar_code": "234234",
+    "buy_price": 123,
+    "sale_price": 133,
+    "category": 1,
+    "supplier": 1,
+    "active_status": true,
+    "create_date": "2023-05-21",
+    "update_date": "2023-05-21",
+    "brand": "generica",
 }
+```
 
 - GET /product/`id`
 - GET /product/find-one
@@ -111,13 +119,11 @@ Example request:
 
 ```json
 {
-    "name": "Joao",
-    "lastname": "Silva",
-    "mail": "joao@gmail.com",
-    "telephone": "48999999999",
-    "password": "******",
+    "name": "matriz",
+    "code": "1",
     "address": 1
 }
+```
 
 - GET /establishment/`id`
 - GET /establishment/find-one
@@ -132,13 +138,10 @@ Example request:
 
 ```json
 {
-    "name": "Joao",
-    "lastname": "Silva",
-    "mail": "joao@gmail.com",
-    "telephone": "48999999999",
-    "password": "******",
-    "address": 1
+    "code": "1234",
+    "description": "material"
 }
+```
 - GET /category/`id`
 - GET /category/find-one
 - GET /category/find-all
