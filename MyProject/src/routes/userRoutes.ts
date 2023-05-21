@@ -19,4 +19,7 @@ userRouter.patch("/:id", checkToken, UserController.updateOne);
 // Delete
 userRouter.delete("/:id", checkToken, UserController.delete);
 
+// Login
+userRouter.post("/login", UserController.login);
+
 export default userRouter;
