@@ -60,7 +60,18 @@ Example request:
 - GET /user/find-one/`id`
 - GET /user/find-all
 - PATCH /user/`id`
+- Requires authentication with Bearer Token.
 - DELETE /user/`id`
+- Requires authentication with Bearer Token.
+- POST /user/login
+Example request:
+
+```json
+{
+    "mail": "joao@gmail.com",
+    "password": "******"
+}
+```
 
 ### Supplier
 
