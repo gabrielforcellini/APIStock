@@ -98,14 +98,9 @@ export class UserController {
   static async findAll(req: Request, res: Response) {
     try {
       const userRespository = AppDataSource.getRepository(User);
-      const users = userRespository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.address', 'address')
-      .leftJoinAndSelect('address.district', 'district')
-      .leftJoinAndSelect('district.city', 'city')
-      .leftJoinAndSelect('city.state', 'state')
-      .leftJoinAndSelect('state.country', 'country')
-      .getMany();
+      const users = await userRespository.find({ relations : {
+        address: true
+      }});
       res.status(200).json({ users, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
