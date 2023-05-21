@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Establishment } from "./Establishment";
-import { Category } from "./Category";
-import { Product } from "./Product";
+import { StockItem } from "./StockItem";
 
 @Entity({ name: "stock"})
 export class Stock {
@@ -14,12 +13,10 @@ export class Stock {
     @Column({ type: "integer"})
     quantity!: number
 
-    @ManyToOne(() => Establishment, (establishment) => establishment.stocks)
+    @ManyToOne(() => Establishment)
+    @JoinColumn()
     establishment!: Establishment
 
-    @ManyToMany(() => Product, (product) => product.stocks)
-    product!: Product
-
-    @ManyToOne(() => Category, (category) => category.stocks)
-    category!: Category
+    @OneToMany(() => StockItem, stockItem => stockItem.stock)
+    stockItems: StockItem[];
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 import { Address } from "./Address/Address";
 import { Product } from "./Product";
 
@@ -28,4 +28,8 @@ export class Supplier {
     @OneToOne(() => Address)
     @JoinColumn()
     address!: Address
+
+    @ManyToMany(() => Product, product => product.suppliers)
+    @JoinTable()
+    products: Product[];
 };
