@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
 import { Supplier } from "./Supplier";
+import { StockItem } from "./StockItem";
 
 @Entity({ name: "product" })
 export class Product {
-    @PrimaryGeneratedColumn({ type: "integer" })
+    @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
 
     @Column({ type: "character varying", length: 50 })
@@ -22,12 +23,6 @@ export class Product {
     @Column({ type: "numeric", precision: 10, scale: 2 })
     sale_price!: number
 
-    @OneToOne(() => Category, (category) => category.id)
-    category!: Category
-
-    @OneToMany(() => Supplier, (supplier) => supplier.id)
-    supplier!: Supplier
-
     @Column({ type: "character varying", length: 50, nullable: true })
     brand?: string
 
@@ -39,4 +34,13 @@ export class Product {
 
     @Column({ type: "date", nullable: true })
     update_date?: Date
+
+    @ManyToOne(() => Category, category => category.products)
+    category!: Category;
+
+    @ManyToMany(() => Supplier, supplier => supplier.products)
+    suppliers: Supplier[];
+
+    @OneToMany(() => StockItem, stockItem => stockItem.product)
+    stockItems: StockItem[];
 };

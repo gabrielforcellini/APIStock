@@ -1,15 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { City } from "./City";
+import { Address } from "./Address";
 
-@Entity({ name: "district"})
+@Entity({ name: "district" })
 export class District {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryGeneratedColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100})
+    @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @OneToOne(() => City)
-    @JoinColumn()
+    @ManyToOne(() => City, (city) => city.districts)
     city!: City
+
+    @OneToMany(() => Address, (address) => address.district)
+    addresses!: Address[]
 }

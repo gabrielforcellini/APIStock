@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
 import { Address } from "./Address/Address";
+import { Product } from "./Product";
 
 @Entity({ name: "supplier"})
 export class Supplier {
@@ -9,22 +10,26 @@ export class Supplier {
     @Column({ type: "character varying", length: 100})
     name!: string
 
+    @Column({ type: "character varying", length: 100, nullable: true})
+    fantasy_name?: string
+
     @Column({ type: "character varying", length: 20, nullable: true})
     telephone?: string
 
     @Column({ type: "character varying", length: 100, nullable: true})
     mail?: string
 
-    @OneToOne(() => Address, (address) => address.id)
+    @Column({ type: "character varying", length: 20})
+    cnpj!: string
+    
+    @Column({ type: "boolean", nullable: true})
+    active_status?: boolean
+
+    @OneToOne(() => Address)
     @JoinColumn()
     address!: Address
 
-    @Column({ type: "character varying", length: 20})
-    cnpj!: string
-
-    @Column({ type: "character varying", length: 100, nullable: true})
-    fantasy_name?: string
-
-    @Column({ type: "boolean", nullable: true})
-    active_status?: boolean
+    @ManyToMany(() => Product, product => product.suppliers)
+    @JoinTable()
+    products: Product[];
 };

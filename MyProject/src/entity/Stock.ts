@@ -1,18 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Establishment } from "./Establishment";
-import { Category } from "./Category";
+import { StockItem } from "./StockItem";
 
 @Entity({ name: "stock"})
 export class Stock {
     @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
 
-    @OneToMany(() => Establishment, (establishment) => establishment.id)
-    establishment!: Establishment
-
     @Column({ type: "character varying", length: 10})
     code!: string
 
-    @OneToOne(() => Category, (category) => category.id)
-    category!: Category
+    @Column({ type: "integer"})
+    quantity!: number
+
+    @ManyToOne(() => Establishment)
+    @JoinColumn()
+    establishment!: Establishment
+
+    @OneToMany(() => StockItem, stockItem => stockItem.stock)
+    stockItems: StockItem[];
 }

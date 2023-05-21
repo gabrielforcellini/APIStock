@@ -16,9 +16,9 @@ export class EstablishmentController {
     establishment.address = address
 
     try {
-      await AppDataSource.manager.save(establishment);
+      const newEstablishment = await AppDataSource.manager.save(establishment);
       res.status(201).json({
-        message: "Registered establishment!",
+        newEstablishment,
         success: true
       });
     } catch (error) {

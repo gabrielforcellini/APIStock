@@ -1,18 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn, ManyToOne, OneToMany } from "typeorm";
 import { Address } from "./Address/Address";
+import { Stock } from "./Stock";
 
-@Entity({ name: "establishment"})
+@Entity({ name: "establishment" })
 export class Establishment {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100})
+    @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @Column({ type: "character varying", length: 50})
+    @Column({ type: "character varying", length: 50 })
     code!: string
 
-    @OneToOne(() => Address, (address) => address.id)
+    @OneToOne(() => Address)
     @JoinColumn()
-    address: Address
+    address!: Address
 };

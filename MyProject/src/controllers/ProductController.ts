@@ -25,16 +25,16 @@ export class ProductController {
     product.buy_price = buy_price;
     product.sale_price = sale_price;
     product.category = category;
-    product.supplier = supplier;
+    product.suppliers = supplier;
     product.active_status = active_status;
     product.create_date = create_date;
     product.update_date = update_date;
     product.brand = brand;
 
     try {
-      await AppDataSource.manager.save(product);
+      const newProduct = await AppDataSource.manager.save(product);
       res.status(201).json({
-        message: "Registered product!",
+        newProduct,
         success: true
       });
     } catch (error) {
@@ -93,7 +93,7 @@ export class ProductController {
       productToUpdate.buy_price = buy_price;
       productToUpdate.sale_price = sale_price;
       productToUpdate.category = category;
-      productToUpdate.supplier = supplier;
+      productToUpdate.suppliers = supplier;
       productToUpdate.active_status = active_status;
       productToUpdate.create_date = create_date;
       productToUpdate.update_date = update_date;

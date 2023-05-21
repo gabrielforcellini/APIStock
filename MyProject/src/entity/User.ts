@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne } from "typeorm"
 import { Address } from "./Address/Address"
 
 @Entity({ name: "user"})
@@ -22,13 +22,13 @@ export class User {
     @Column({ type: "character varying", length: 20})
     telephone!: string
 
-    @OneToOne(() => Address, (address) => address.id)
-    @JoinColumn() 
-    address: Address
-
     @Column({ type: "timestamp without time zone", nullable: true})
     create_date?: Date
 
     @Column({ type: "timestamp without time zone", nullable: true})
     update_date?: Date
+
+    @ManyToOne(() => Address, address => address.users)
+    @JoinColumn()
+    address!: Address
 };

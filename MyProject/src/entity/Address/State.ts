@@ -1,18 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Country } from "./Country";
+import { City } from "./City";
 
-@Entity({ name: "state"})
+@Entity({ name: "state" })
 export class State {
-    @PrimaryGeneratedColumn({ type: "integer"})
+    @PrimaryGeneratedColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100})
+    @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @Column({ type: "character varying", length: 5, nullable: true})
+    @Column({ type: "character varying", length: 5, nullable: true })
     initials?: string
 
-    @OneToOne(() => Country)
-    @JoinColumn()
-    city!: Country
+    @ManyToOne(() => Country, (country) => country.states)
+    country!: Country
+
+    @OneToMany(() => City, (city) => city.state)
+    cities!: City[]
 }

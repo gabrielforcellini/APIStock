@@ -14,8 +14,8 @@ export class CategoryController {
     category.description = description;
 
     try {
-      await AppDataSource.manager.save(category);
-      res.status(200).json({ category, success: true });
+      const newCategory = await AppDataSource.manager.save(category);
+      res.status(200).json({ newCategory, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
     };
