@@ -1,4 +1,4 @@
-import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Address } from "./Address/Address";
 import { Stock } from "./Stock";
 
@@ -17,7 +17,7 @@ export class Establishment {
     @JoinColumn()
     address!: Address
 
-    @ManyToMany(() => Stock)
+    @OneToMany(() => Stock, (stock) => stock.establishment)
     @JoinTable()
-    stock: Stock[]
+    stocks: Stock[]
 };
