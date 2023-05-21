@@ -1,9 +1,10 @@
-import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Country } from "./Country";
+import { City } from "./City";
 
 @Entity({ name: "state" })
 export class State {
-    @PrimaryColumn({ type: "integer" })
+    @PrimaryGeneratedColumn({ type: "integer" })
     id!: number
 
     @Column({ type: "character varying", length: 100 })
@@ -12,7 +13,9 @@ export class State {
     @Column({ type: "character varying", length: 5, nullable: true })
     initials?: string
 
-    @OneToOne(() => Country)
-    @JoinColumn()
-    city!: Country
+    @ManyToOne(() => Country, (country) => country.states)
+    country!: Country
+
+    @OneToMany(() => City, (city) => city.state)
+    cities!: City[]
 }

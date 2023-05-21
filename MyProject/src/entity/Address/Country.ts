@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column,  PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { State } from "./State";
 
 @Entity({ name: "country" })
 export class Country {
-    @PrimaryColumn({ type: "integer" })
+    @PrimaryGeneratedColumn({ type: "integer" })
     id!: number
 
     @Column({ type: "character varying", length: 100 })
@@ -10,4 +11,7 @@ export class Country {
 
     @Column({ type: "character varying", length: 5, nullable: true })
     initials?: string
+
+    @OneToMany(() => State, (state) => state.country)
+    states: State[]
 }

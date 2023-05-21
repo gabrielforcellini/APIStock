@@ -18,7 +18,6 @@ export class Stock {
     establishment!: Establishment
 
     @ManyToMany(() => Product, (product) => product.stocks)
-    @JoinTable()
     product!: Product
 
     @ManyToOne(() => Category, (category) => category.stocks)
