@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import { getToken } from './getToken';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-const jwt = require("jsonwebtoken");
-const getToken = require("./get-token");
 
 const SECRET = process.env.SECRET;
 
