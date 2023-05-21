@@ -43,6 +43,7 @@ StockAPI provides various endpoints to interact with the API resources. Below ar
 ### User
 
 - POST /user/create
+
 Example request:
 
 ```json
@@ -60,9 +61,9 @@ Example request:
 - GET /user/find-one/`id`
 - GET /user/find-all
 - PATCH /user/`id`
-- Requires authentication with Bearer Token.
+  - Requires authentication with Bearer Token.
 - DELETE /user/`id`
-- Requires authentication with Bearer Token.
+  - Requires authentication with Bearer Token.
 - POST /user/login
 Example request:
 
@@ -76,6 +77,7 @@ Example request:
 ### Supplier
 
 - POST /supplier/create
+
 Example request:
 
 ```json
@@ -99,6 +101,7 @@ Example request:
 ### Product
 
 - POST /product/create
+
 Example request:
 
 ```json
@@ -126,6 +129,7 @@ Example request:
 ### Establishment
 
 - POST /establishment/create
+
 Example request:
 
 ```json
@@ -145,6 +149,7 @@ Example request:
 ### Category
 
 - POST /category/create
+
 Example request:
 
 ```json
