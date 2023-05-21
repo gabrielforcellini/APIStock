@@ -1,4 +1,3 @@
-import { AppDataSource } from "./data-source"
 import express, { Request, Response } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
@@ -8,40 +7,38 @@ import supplierRouter from './routes/supplierRoutes';
 import productRouter from './routes/productRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 import establishmentRouter from './routes/establishmentRoutes';
+import { conn } from './db/conn';
 
 const app = express();
 
 dotenv.config();
 const { api_port } = process.env;
 
-AppDataSource.initialize().then(async () => {
+app.use(
+    express.urlencoded({ extended: true })
+);
 
-    console.log("Connected to the database");
+app.use(express.json());
 
-    app.use(
-        express.urlencoded({ extended: true })
-    );
+// Solve cors
+app.use(cors());
 
-    app.use(express.json());
+app.get("/", (req: Request, res: Response) => {
+    res.json({ message: "API to Projeto Integrador I" });
+});
 
-    // Solve cors
-    app.use(cors());
+app.use("/user", userRouter);
 
-    app.get("/", (req: Request, res: Response) => {
-        res.json({ message: "API to Projeto Integrador I" });
-    });
+app.use("/supplier", supplierRouter);
 
-    app.use("/user", userRouter);
+app.use("/product", productRouter);
 
-    app.use("/supplier", supplierRouter);
+app.use("/establishment", establishmentRouter);
 
-    app.use("/product", productRouter);
+app.use("/category", categoryRoutes);
 
-    app.use("/establishment", establishmentRouter);
+app.listen(api_port);
+console.log(`API listening on port ${api_port}`);
 
-    app.use("/category", categoryRoutes);
-
-    app.listen(api_port);
-    console.log(`API listening on port ${api_port}`);
-
-}).catch(error => console.log(error));
+// Database connection
+conn();
