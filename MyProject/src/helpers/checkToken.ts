@@ -7,7 +7,9 @@ dotenv.config();
 
 const SECRET = process.env.SECRET;
 
-//middleware to validate Token
+/**
+ * Middleware to validate Token
+ */
 export const checkToken = (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers.authorization) {
         return res.status(401).json({ message: "Access denied!", success: false });
