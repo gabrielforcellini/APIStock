@@ -10,9 +10,9 @@ export class City {
     @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @ManyToOne(() => State, (state) => state.cities)
-    state!: State
-
-    @OneToMany(() => District, (district) => district.city)
+    @OneToMany(type => District, city => City)
     districts!: District[]
+
+    @ManyToOne(type => State, cities => City, {eager: true})
+    state!: State
 }

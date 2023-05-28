@@ -12,10 +12,10 @@ export class State {
 
     @Column({ type: "character varying", length: 5, nullable: true })
     initials?: string
-
-    @ManyToOne(() => Country, (country) => country.states)
-    country!: Country
-
-    @OneToMany(() => City, (city) => city.state)
+    
+    @OneToMany(type => City, state => State)
     cities!: City[]
+    
+    @ManyToOne(type => Country, states => State, {eager: true})
+    country!: Country
 }

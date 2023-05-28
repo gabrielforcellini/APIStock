@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
-import { Supplier } from "./Supplier";
-import { StockItem } from "./StockItem";
+import { Stock_Product } from "./Stock_Product";
+import { Stock } from "./Stock";
 
 @Entity({ name: "product" })
 export class Product {
@@ -35,12 +35,10 @@ export class Product {
     @Column({ type: "date", nullable: true })
     update_date?: Date
 
-    @ManyToOne(() => Category, category => category.products)
+    @ManyToOne(type => Category, products => Product, {eager: true})
+    @JoinColumn({ name: "category_id"})
     category!: Category;
 
-    @ManyToMany(() => Supplier, supplier => supplier.products)
-    suppliers: Supplier[];
-
-    @OneToMany(() => StockItem, stockItem => stockItem.product)
-    stockItems: StockItem[];
+    @OneToMany(type => Stock_Product, stock => Stock)
+    stock_product: Stock_Product
 };

@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne, TableUnique } from "typeorm"
 import { Address } from "./Address/Address"
+import { type } from "os"
 
 @Entity({ name: "user"})
 export class User {
@@ -28,7 +29,7 @@ export class User {
     @Column({ type: "timestamp without time zone", nullable: true})
     update_date?: Date
 
-    @ManyToOne(() => Address, address => address.users)
-    @JoinColumn()
+    @OneToOne(type => Address, user => User, {eager: true})
+    @JoinColumn({ name : "address_id"})
     address!: Address
 };

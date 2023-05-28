@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { City } from "./City";
 import { Address } from "./Address";
+import { type } from "os";
 
 @Entity({ name: "district" })
 export class District {
@@ -10,9 +11,9 @@ export class District {
     @Column({ type: "character varying", length: 100 })
     name!: string
 
-    @ManyToOne(() => City, (city) => city.districts)
-    city!: City
-
-    @OneToMany(() => Address, (address) => address.district)
+    @OneToMany(type => Address, district => District)
     addresses!: Address[]
+
+    @ManyToOne(type => City, districts => District, { eager: true})
+    city!: City
 }
