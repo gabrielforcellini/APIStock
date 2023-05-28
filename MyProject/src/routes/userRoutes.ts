@@ -22,4 +22,7 @@ userRouter.delete("/:id", checkToken, UserController.delete);
 // Login
 userRouter.post("/login", UserController.login);
 
+//Verify User
+userRouter.get("/checkuser", UserController.checkUser);
+
 export default userRouter;

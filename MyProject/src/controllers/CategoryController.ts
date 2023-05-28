@@ -3,6 +3,9 @@ import { Category } from '../entity/Category';
 import { AppDataSource } from '../data-source';
 
 export class CategoryController {
+  /**
+   * Register an category
+   */
   static async register(req: Request, res: Response) {
     const {
       code,
@@ -21,28 +24,37 @@ export class CategoryController {
     };
   };
 
+  /**
+   * Find a category by id
+   */
   static async findOneById(req: Request, res: Response) {
     const id = req.params.id;
 
     try {
-      const userRepository = AppDataSource.getRepository(Category);
-      const user = await userRepository.findOneBy({ id: parseInt(id) });
-      res.status(200).json({ user, success: true });
-    } catch (error) {
-      res.status(500).json({ error, success: false });
-    };
-  };
-
-  static async findAll(req: Request, res: Response) {
-    try {
-      const categoryRespository = AppDataSource.getRepository(Category);
-      const category = await categoryRespository.find();
+      const categoryRepository = AppDataSource.getRepository(Category);
+      const category = await categoryRepository.findOneBy({ id: parseInt(id) });
       res.status(200).json({ category, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
     };
   };
 
+  /**
+   * Find all categories from database
+   */
+  static async findAll(req: Request, res: Response) {
+    try {
+      const categoryRespository = AppDataSource.getRepository(Category);
+      const categories = await categoryRespository.find();
+      res.status(200).json({ categories, success: true });
+    } catch (error) {
+      res.status(500).json({ error, success: false });
+    };
+  };
+
+  /**
+   * Update an category by id
+   */
   static async updateOne(req: Request, res: Response) {
     const id = req.params.id;
 
@@ -65,6 +77,9 @@ export class CategoryController {
     }
   };
 
+  /**
+   * Delete an category by id
+   */
   static async delete(req: Request, res: Response) {
     const id = req.params.id;
 
