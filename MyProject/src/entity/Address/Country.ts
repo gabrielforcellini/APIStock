@@ -6,12 +6,12 @@ export class Country {
     @PrimaryGeneratedColumn({ type: "integer" })
     id!: number
 
-    @Column({ type: "character varying", length: 100 })
+    @Column({ type: "character varying", length: 100 , unique: true})
     name!: string
 
-    @Column({ type: "character varying", length: 5, nullable: true })
+    @Column({ type: "character varying", length: 5, nullable: true , unique: true})
     initials?: string
 
-    @OneToMany(() => State, (state) => state.country)
+    @OneToMany(type => State, country => Country)
     states: State[]
 }

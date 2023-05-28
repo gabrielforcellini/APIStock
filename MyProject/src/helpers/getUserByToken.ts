@@ -12,18 +12,21 @@ interface DecodedToken extends JwtPayload {
   id: string;
 };
 
+/**
+ * Obtém o usuário a partir do token
+ */
 export const getUserByToken = async (req: Request, res: Response, token: string) => {
 
-    if(!token) {
-        return res.status(401).json({ message: "Access denied!" });
-    };
+  if (!token) {
+    return res.status(401).json({ message: "Access denied!" });
+  };
 
-    const decoded = jwt.verify(token, SECRET) as DecodedToken;
+  const decoded = jwt.verify(token, SECRET) as DecodedToken;
 
-    const userId = decoded.id;
+  const userId = decoded.id;
 
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneBy({ id: parseInt(userId) });
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({ id: parseInt(userId) });
 
-    return user;
+  return user;
 };

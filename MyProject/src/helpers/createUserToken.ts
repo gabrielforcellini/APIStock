@@ -7,6 +7,9 @@ dotenv.config();
 
 const SECRET = process.env.secret;
 
+/**
+ * Cria token para o usuário
+ */
 export const createUserToken = async (user: User, req: Request, res: Response) => {
   const token = jwt.sign({
     name: user.name,

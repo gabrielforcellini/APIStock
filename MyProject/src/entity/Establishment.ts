@@ -13,7 +13,10 @@ export class Establishment {
     @Column({ type: "character varying", length: 50 })
     code!: string
 
-    @OneToOne(() => Address)
-    @JoinColumn()
+    @OneToOne(type => Address, establishment => Establishment, {eager : true})
+    @JoinColumn({ name: "address_id"})
     address!: Address
+
+    @OneToMany(type => Stock, establishment => Establishment)
+    stock: Stock[];
 };

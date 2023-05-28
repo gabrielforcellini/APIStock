@@ -25,11 +25,11 @@ export class Supplier {
     @Column({ type: "boolean", nullable: true})
     active_status?: boolean
 
-    @OneToOne(() => Address)
-    @JoinColumn()
+    @OneToOne(type => Address, supplier => Supplier, {eager: true})
+    @JoinColumn({name: "address_id"})
     address!: Address
 
-    @ManyToMany(() => Product, product => product.suppliers)
-    @JoinTable()
-    products: Product[];
+    @ManyToMany(type => Product)
+    @JoinTable({name: "supplier_product"})
+    products: Product;
 };
