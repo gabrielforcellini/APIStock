@@ -21,6 +21,7 @@ export class UserController {
       password,
       telephone,
       address,
+      confirmPassword
     } = req.body;
 
     // Check if user already exists.
@@ -30,6 +31,10 @@ export class UserController {
     if (userExists) {
       return res.status(404).json({ message: "E-mail already registered! Please try another.", success: false });
     };
+
+    if (confirmPassword !== password) {
+      return res.status(422).json({ message: "Passwords don't match!", success: false });
+   };
 
     //create password
     const salt = await bcrypt.genSalt(12);
@@ -139,7 +144,7 @@ export class UserController {
       const userToUpdate = await getUserByToken(req, res, token);
 
       if (!userToUpdate) {
-        return res.status(422).json({ message: "user not found!", success: true });
+        return res.status(422).json({ message: "user not found!", success: false });
       };     
 
       const {
@@ -149,16 +154,28 @@ export class UserController {
         telephone,
         password,
         address
-      } = req.body.user;
+      } = req.body;
 
       const userRepository = AppDataSource.getRepository(User);
 
-      userToUpdate.name = name;
-      userToUpdate.lastname = lastname;
-      userToUpdate.mail = mail;
-      userToUpdate.telephone = telephone;
-      userToUpdate.password = password;
-      userToUpdate.address = address;
+      if (name) {
+        userToUpdate.name = name;
+      };
+      if (lastname) {
+        userToUpdate.lastname = lastname;
+      };
+      if (mail) {
+        userToUpdate.mail = mail;
+      };
+      if (password) {
+        userToUpdate.password = password;
+      };
+      if (address) {
+        userToUpdate.address = address;
+      };
+      if (telephone) {
+        userToUpdate.telephone = telephone;
+      };
        
       await userRepository.save(userToUpdate);
       res.status(200).json({ userToUpdate, success: true });
