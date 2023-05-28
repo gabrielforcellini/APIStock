@@ -14,7 +14,7 @@ export class User {
     @Column({ type: "character varying", length: 50})
     lastname!: string
 
-    @Column({ type: "character varying", length: 50})
+    @Column({ type: "character varying", length: 50, unique: true})
     mail!: string
 
     @Column({ type: "character varying", length: 100})
