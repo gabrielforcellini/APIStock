@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne, TableUnique } from "typeorm"
 import { Address } from "./Address/Address"
-import { type } from "os"
 
 @Entity({ name: "user"})
 export class User {

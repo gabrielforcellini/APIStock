@@ -8,6 +8,7 @@ import productRouter from './routes/productRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 import establishmentRouter from './routes/establishmentRoutes';
 import { conn } from './db/conn';
+import addressRouter from "./routes/addressRoutes";
 
 const app = express();
 
@@ -36,6 +37,8 @@ app.use("/product", productRouter);
 app.use("/establishment", establishmentRouter);
 
 app.use("/category", categoryRoutes);
+
+app.use("/address", addressRouter);
 
 app.listen(api_port);
 console.log(`API listening on port ${api_port}`);

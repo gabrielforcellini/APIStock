@@ -14,6 +14,6 @@ export class District {
     @OneToMany(type => Address, district => District)
     addresses!: Address[]
 
-    @ManyToOne(type => City, districts => District, { eager: true})
+    @ManyToOne(type => City, districts => District)
     city!: City
 }
