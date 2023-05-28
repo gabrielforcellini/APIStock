@@ -16,7 +16,7 @@ export class Supplier {
     @Column({ type: "character varying", length: 20, nullable: true})
     telephone?: string
 
-    @Column({ type: "character varying", length: 100, nullable: true})
+    @Column({ type: "character varying", length: 100, nullable: true, unique: true})
     mail?: string
 
     @Column({ type: "character varying", length: 20})
@@ -25,11 +25,11 @@ export class Supplier {
     @Column({ type: "boolean", nullable: true})
     active_status?: boolean
 
-    @OneToOne(() => Address)
-    @JoinColumn()
+    @OneToOne(type => Address, supplier => Supplier, {eager: true})
+    @JoinColumn({name: "address_id"})
     address!: Address
 
-    @ManyToMany(() => Product, product => product.suppliers)
-    @JoinTable()
-    products: Product[];
+    @ManyToMany(type => Product)
+    @JoinTable({name: "supplier_product"})
+    products: Product;
 };

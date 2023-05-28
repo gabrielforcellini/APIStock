@@ -13,6 +13,6 @@ export class Category {
     @Column({ type: "character varying", length: 100, nullable: true})
     description?: string
 
-    @OneToMany(() => Product, product => product.category)
+    @OneToMany(type => Product, category => Category)
     products: Product[];
 }
