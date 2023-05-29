@@ -15,10 +15,10 @@ interface DecodedToken extends JwtPayload {
 /**
  * Obtém o usuário a partir do token
  */
-export const getUserByToken = async (req: Request, res: Response, token: string) => {
+export const getUserByToken = async (req: Request, res: Response, token: string): Promise<User> => {
 
   if (!token) {
-    return res.status(401).json({ message: "Access denied!" });
+    null;
   };
 
   const decoded = jwt.verify(token, SECRET) as DecodedToken;

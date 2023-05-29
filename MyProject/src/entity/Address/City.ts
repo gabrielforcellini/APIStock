@@ -13,6 +13,6 @@ export class City {
     @OneToMany(type => District, city => City)
     districts!: District[]
 
-    @ManyToOne(type => State, cities => City, {eager: true})
+    @ManyToOne(type => State, cities => City)
     state!: State
 }

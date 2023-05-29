@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { createUserToken } from '../helpers/createUserToken';
 import dotenv from 'dotenv';
 import { getToken } from '../helpers/getToken';
+import { getUserByToken } from '../helpers/getUserByToken';
 
 dotenv.config();
 
@@ -21,6 +22,14 @@ export class UserController {
       telephone,
       address,
     } = req.body;
+
+    // Check if user already exists.
+    const userRepository = AppDataSource.getRepository(User);
+    const userExists = await userRepository.findOneBy({ mail: mail });
+
+    if (userExists) {
+      return res.status(404).json({ message: "E-mail already registered! Please try another.", success: false });
+    };
 
     //create password
     const salt = await bcrypt.genSalt(12);
@@ -75,21 +84,21 @@ export class UserController {
   };
 
   static async checkUser(req: Request, res: Response) {
-    let currentUser: User;
-
     try {
       if (req.headers.authorization) {
         const token = getToken(req);
-        const decoded = jwt.verify(token, SECRET) as { id: string };
+        
+        const decoded = jwt.verify(token, SECRET) as { id: string };  
 
         const userRepository = AppDataSource.getRepository(User);
-        const user = await userRepository.findOneBy({ id: parseInt(decoded.id) });
-        currentUser.password = undefined;
-      } else {
-        currentUser = null;
-      };
+        const currentUser = await userRepository.findOneBy({ id: parseInt(decoded.id) });
 
-      res.status(200).send(currentUser);
+        currentUser.password = undefined;
+
+        res.status(200).send(currentUser);
+      } else {
+        res.status(404).send({ error: "token required!", success: false });
+      };
     } catch (error) {
       res.status(500).json({ error, success: false });
     };
@@ -97,10 +106,17 @@ export class UserController {
 
   static async findAll(req: Request, res: Response) {
     try {
-      const userRespository = AppDataSource.getRepository(User);
-      const users = await userRespository.find({ relations : {
-        address: true
-      }});
+      const userRespository = AppDataSource
+                                .getRepository(User)
+                                .createQueryBuilder("user")
+                                .leftJoinAndSelect("user.address", "address")
+                                .leftJoinAndSelect("address.district" , "district")
+                                .leftJoinAndSelect("district.city", "city")
+                                .leftJoinAndSelect("city.state", "state")
+                                .leftJoinAndSelect("state.country", "country")
+                                .getMany();
+                                
+      const users = await userRespository;
       res.status(200).json({ users, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
@@ -119,29 +135,48 @@ export class UserController {
     };
   };
 
-  static async updateOne(req: Request, res: Response) {
-    const id = req.params.id;
-
-    const {
-      name,
-      lastname,
-      mail,
-      telephone,
-      password,
-      address
-    } = req.body;
-
+  /**
+   * Update an user by token
+   */
+  static async updateOne(req: Request, res: Response) {    
     try {
+      const token = getToken(req);
+      const userToUpdate = await getUserByToken(req, res, token);
+
+      if (!userToUpdate) {
+        return res.status(422).json({ message: "user not found!", success: false });
+      };     
+
+      const {
+        name,
+        lastname,
+        mail,
+        telephone,
+        password,
+        address
+      } = req.body;
+
       const userRepository = AppDataSource.getRepository(User);
-      const userToUpdate = await userRepository.findOneBy({
-        id: parseInt(id)
-      });
-      userToUpdate.name = name;
-      userToUpdate.lastname = lastname;
-      userToUpdate.mail = mail;
-      userToUpdate.telephone = telephone;
-      userToUpdate.password = password;
-      userToUpdate.address = address;
+
+      if (name) {
+        userToUpdate.name = name;
+      };
+      if (lastname) {
+        userToUpdate.lastname = lastname;
+      };
+      if (mail) {
+        userToUpdate.mail = mail;
+      };
+      if (password) {
+        userToUpdate.password = password;
+      };
+      if (address) {
+        userToUpdate.address = address;
+      };
+      if (telephone) {
+        userToUpdate.telephone = telephone;
+      };
+       
       await userRepository.save(userToUpdate);
       res.status(200).json({ userToUpdate, success: true });
     } catch (error) {

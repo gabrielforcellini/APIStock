@@ -16,6 +16,6 @@ export class State {
     @OneToMany(type => City, state => State)
     cities!: City[]
     
-    @ManyToOne(type => Country, states => State, {eager: true})
+    @ManyToOne(type => Country, states => State)
     country!: Country
 }

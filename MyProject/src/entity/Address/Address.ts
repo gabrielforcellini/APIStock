@@ -18,7 +18,7 @@ export class Address {
     @Column({ type: "character varying", length: 10 })
     zip_code?: string
     
-    @ManyToOne(type => District, addresses => Address, {eager: true})
+    @ManyToOne(type => District, addresses => Address)
     district!: District
 
     @OneToOne(type => Supplier, address => Address)

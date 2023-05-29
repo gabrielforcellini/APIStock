@@ -16,7 +16,7 @@ export class Supplier {
     @Column({ type: "character varying", length: 20, nullable: true})
     telephone?: string
 
-    @Column({ type: "character varying", length: 100, nullable: true})
+    @Column({ type: "character varying", length: 100, nullable: true, unique: true})
     mail?: string
 
     @Column({ type: "character varying", length: 20})

@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne, TableUnique } from "typeorm"
 import { Address } from "./Address/Address"
-import { type } from "os"
 
 @Entity({ name: "user"})
 export class User {
@@ -14,7 +13,7 @@ export class User {
     @Column({ type: "character varying", length: 50})
     lastname!: string
 
-    @Column({ type: "character varying", length: 50})
+    @Column({ type: "character varying", length: 50, unique: true})
     mail!: string
 
     @Column({ type: "character varying", length: 100})
