@@ -21,7 +21,6 @@ export class UserController {
       password,
       telephone,
       address,
-      confirmPassword
     } = req.body;
 
     // Check if user already exists.
@@ -31,10 +30,6 @@ export class UserController {
     if (userExists) {
       return res.status(404).json({ message: "E-mail already registered! Please try another.", success: false });
     };
-
-    if (confirmPassword !== password) {
-      return res.status(422).json({ message: "Passwords don't match!", success: false });
-   };
 
     //create password
     const salt = await bcrypt.genSalt(12);
