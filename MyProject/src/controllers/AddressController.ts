@@ -36,7 +36,7 @@ export class AddressController {
       res.status(500).json({ error, success: false });
     };
   };
-  static async findAllStates(req: Request, res: Response) {
+  static async findAllStates(_req: Request, res: Response) {
     try {
       const statesRespository = AppDataSource
                                   .getRepository(State)
@@ -171,8 +171,13 @@ export class AddressController {
 
     let state: State;
     try {
-      const stateRepository = AppDataSource.getRepository(State);
-      state = await stateRepository.findOneBy({ name: state_name});
+      const stateRepository = AppDataSource.getRepository(State)
+                                              .createQueryBuilder("state")
+                                              .leftJoinAndSelect("state.country", 'country')
+                                              .where("state.country = :id", { id: country.id})
+                                              .andWhere("state.name = :name", { name: state_name})
+                                              .getOne();
+      state = await stateRepository;
     } catch (error) {
       res.status(500).json({ error, success: false });
     }
@@ -191,8 +196,13 @@ export class AddressController {
 
     let city: City;
     try {
-      const cityRepository = AppDataSource.getRepository(City);
-      city = await cityRepository.findOneBy({ name: city_name});
+      const cityRepository = AppDataSource.getRepository(City)
+                                            .createQueryBuilder("city")
+                                            .leftJoinAndSelect("city.state", 'state')
+                                            .where("city.state = :id", { id: state.id})
+                                            .andWhere("city.name = :name", { name: city_name})
+                                            .getOne();
+      city = await cityRepository;
     } catch (error){
       res.status(500).json({ error, success: false });
     }
@@ -210,8 +220,13 @@ export class AddressController {
 
     let district: District;
     try {
-      const districtRepository = AppDataSource.getRepository(District);
-      district = await districtRepository.findOneBy({ name: district_name});
+      const districtRepository = AppDataSource.getRepository(District)
+                                                .createQueryBuilder("district")
+                                                .leftJoinAndSelect("district.city", 'city')
+                                                .where("district.city = :id", { id: city.id})
+                                                .andWhere("district.name = :name", { name: district_name})
+                                                .getOne();;
+      district = await districtRepository;
     } catch (error) {
       res.status(500).json({ error, success: false });
     }
