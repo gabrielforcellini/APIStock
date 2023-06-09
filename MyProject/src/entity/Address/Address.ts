@@ -21,12 +21,12 @@ export class Address {
     @ManyToOne(type => District, addresses => Address)
     district!: District
 
-    @OneToOne(type => Supplier, address => Address)
+    @OneToMany(type => Supplier, address => Address)
     supplier: Supplier
 
-    @OneToOne(type => User, address => Address)
+    @OneToMany(type => User, address => Address)
     users: User
 
-    @OneToOne(type => Establishment, address => Address)
+    @OneToMany(type => Establishment, address => Address)
     establishment: Establishment
 }
