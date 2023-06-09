@@ -87,8 +87,8 @@ export class UserController {
     try {
       if (req.headers.authorization) {
         const token = getToken(req);
-        
-        const decoded = jwt.verify(token, SECRET) as { id: string };  
+
+        const decoded = jwt.verify(token, SECRET) as { id: string };
 
         const userRepository = AppDataSource.getRepository(User);
         const currentUser = await userRepository.findOneBy({ id: parseInt(decoded.id) });
@@ -107,15 +107,15 @@ export class UserController {
   static async findAll(req: Request, res: Response) {
     try {
       const userRespository = AppDataSource
-                                .getRepository(User)
-                                .createQueryBuilder("user")
-                                .leftJoinAndSelect("user.address", "address")
-                                .leftJoinAndSelect("address.district" , "district")
-                                .leftJoinAndSelect("district.city", "city")
-                                .leftJoinAndSelect("city.state", "state")
-                                .leftJoinAndSelect("state.country", "country")
-                                .getMany();
-                                
+        .getRepository(User)
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.address", "address")
+        .leftJoinAndSelect("address.district", "district")
+        .leftJoinAndSelect("district.city", "city")
+        .leftJoinAndSelect("city.state", "state")
+        .leftJoinAndSelect("state.country", "country")
+        .getMany();
+
       const users = await userRespository;
       res.status(200).json({ users, success: true });
     } catch (error) {
@@ -138,14 +138,16 @@ export class UserController {
   /**
    * Update an user by token
    */
-  static async updateOne(req: Request, res: Response) {    
+  static async updateOne(req: Request, res: Response) {
     try {
       const token = getToken(req);
       const userToUpdate = await getUserByToken(req, res, token);
 
       if (!userToUpdate) {
         return res.status(422).json({ message: "user not found!", success: false });
-      };     
+      };
+
+      console.log(userToUpdate);      
 
       const {
         name,
@@ -155,6 +157,8 @@ export class UserController {
         password,
         address
       } = req.body;
+
+      console.log(req.body);      
 
       const userRepository = AppDataSource.getRepository(User);
 
@@ -168,7 +172,9 @@ export class UserController {
         userToUpdate.mail = mail;
       };
       if (password) {
-        userToUpdate.password = password;
+        //create password
+        const salt = await bcrypt.genSalt(12);
+        userToUpdate.password = await bcrypt.hash(password, salt);
       };
       if (address) {
         userToUpdate.address = address;
@@ -176,7 +182,7 @@ export class UserController {
       if (telephone) {
         userToUpdate.telephone = telephone;
       };
-       
+
       await userRepository.save(userToUpdate);
       res.status(200).json({ userToUpdate, success: true });
     } catch (error) {
