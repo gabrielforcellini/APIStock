@@ -173,7 +173,7 @@ export class AddressController {
     try {
       const stateRepository = AppDataSource.getRepository(State)
                                               .createQueryBuilder("state")
-                                              .leftJoinAndSelect("state.country", 'country')
+                                              .leftJoin("state.country", 'country')
                                               .where("state.country = :id", { id: country.id})
                                               .andWhere("state.name = :name", { name: state_name})
                                               .getOne();
@@ -198,7 +198,7 @@ export class AddressController {
     try {
       const cityRepository = AppDataSource.getRepository(City)
                                             .createQueryBuilder("city")
-                                            .leftJoinAndSelect("city.state", 'state')
+                                            .leftJoin("city.state", 'state')
                                             .where("city.state = :id", { id: state.id})
                                             .andWhere("city.name = :name", { name: city_name})
                                             .getOne();
@@ -222,7 +222,7 @@ export class AddressController {
     try {
       const districtRepository = AppDataSource.getRepository(District)
                                                 .createQueryBuilder("district")
-                                                .leftJoinAndSelect("district.city", 'city')
+                                                .leftJoin("district.city", 'city')
                                                 .where("district.city = :id", { id: city.id})
                                                 .andWhere("district.name = :name", { name: district_name})
                                                 .getOne();;
