@@ -1,4 +1,4 @@
-import { Entity, Column, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, JoinColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne } from "typeorm";
 import { Address } from "./Address/Address";
 import { Product } from "./Product";
 
@@ -25,7 +25,7 @@ export class Supplier {
     @Column({ type: "boolean", nullable: true})
     active_status?: boolean
 
-    @OneToOne(type => Address, supplier => Supplier, {eager: true})
+    @ManyToOne(type => Address, supplier => Supplier, {eager: true})
     @JoinColumn({name: "address_id"})
     address!: Address
 

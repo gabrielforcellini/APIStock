@@ -20,7 +20,7 @@ export class UserController {
       mail,
       password,
       telephone,
-      address,
+      address_id,
     } = req.body;
 
     // Check if user already exists.
@@ -41,7 +41,7 @@ export class UserController {
     user.mail = mail;
     user.telephone = telephone;
     user.password = passwordHash;
-    user.address = address;
+    user.address = address_id;
 
     try {
       const newUser = await AppDataSource.manager.save(user);

@@ -36,7 +36,7 @@ export class AddressController {
       res.status(500).json({ error, success: false });
     };
   };
-  static async findAllStates(req: Request, res: Response) {
+  static async findAllStates(_req: Request, res: Response) {
     try {
       const statesRespository = AppDataSource
                                   .getRepository(State)
@@ -164,15 +164,16 @@ export class AddressController {
       country.initials = country_initials;
       
       country = await AppDataSource.manager.save(country);
-      console.log("criado pais!", country)
-    } else {
-      console.log("pais ja existe!", country)
     }
-
     let state: State;
     try {
-      const stateRepository = AppDataSource.getRepository(State);
-      state = await stateRepository.findOneBy({ name: state_name});
+      const stateRepository = AppDataSource.getRepository(State)
+                                              .createQueryBuilder("state")
+                                              .leftJoin("state.country", 'country')
+                                              .where("state.country = :id", { id: country.id})
+                                              .andWhere("state.name = :name", { name: state_name})
+                                              .getOne();
+      state = await stateRepository;
     } catch (error) {
       res.status(500).json({ error, success: false });
     }
@@ -184,15 +185,17 @@ export class AddressController {
       state.country = country;
 
       state = await AppDataSource.manager.save(state);
-      console.log("criado estado!", state)
-    } else {
-      console.log("estado ja existe!", state)
     }
 
     let city: City;
     try {
-      const cityRepository = AppDataSource.getRepository(City);
-      city = await cityRepository.findOneBy({ name: city_name});
+      const cityRepository = AppDataSource.getRepository(City)
+                                            .createQueryBuilder("city")
+                                            .leftJoin("city.state", 'state')
+                                            .where("city.state = :id", { id: state.id})
+                                            .andWhere("city.name = :name", { name: city_name})
+                                            .getOne();
+      city = await cityRepository;
     } catch (error){
       res.status(500).json({ error, success: false });
     }
@@ -203,15 +206,17 @@ export class AddressController {
       city.state = state;
     
       city = await AppDataSource.manager.save(city);
-      console.log("criado cidade!", city)
-    } else {
-      console.log("cidade ja existe!", city)
     }
 
     let district: District;
     try {
-      const districtRepository = AppDataSource.getRepository(District);
-      district = await districtRepository.findOneBy({ name: district_name});
+      const districtRepository = AppDataSource.getRepository(District)
+                                                .createQueryBuilder("district")
+                                                .leftJoin("district.city", 'city')
+                                                .where("district.city = :id", { id: city.id})
+                                                .andWhere("district.name = :name", { name: district_name})
+                                                .getOne();
+      district = await districtRepository;
     } catch (error) {
       res.status(500).json({ error, success: false });
     }
@@ -222,10 +227,7 @@ export class AddressController {
       district.city = city;
 
       district = await AppDataSource.manager.save(district);
-      console.log("criado bairro!", district)
-    } else {
-      console.log("bairro ja existe!", district)
-    }
+    } 
 
     const address = new Address();
     address.street = street;
@@ -234,8 +236,7 @@ export class AddressController {
     address.district = district;
 
     try{
-      const newAddress = await AppDataSource.manager.save(address)
-      console.log("criado endereço!", newAddress)
+      const newAddress = await AppDataSource.manager.save(address);
       res.status(200).json({ newAddress, success: true})
     } catch (error){
       res.status(500).json({ error, success: false });
