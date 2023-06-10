@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { District } from "./District";
-import { User } from "../User";
 import { Supplier } from "../Supplier";
 import { Establishment } from "../Establishment";
 
@@ -19,13 +18,10 @@ export class Address {
     zip_code?: string
     
     @ManyToOne(type => District, addresses => Address)
-    district!: District
+    district: District
 
     @OneToMany(type => Supplier, address => Address)
     supplier: Supplier
-
-    @OneToMany(type => User, address => Address)
-    users: User
 
     @OneToMany(type => Establishment, address => Address)
     establishment: Establishment

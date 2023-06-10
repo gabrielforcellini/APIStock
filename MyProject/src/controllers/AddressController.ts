@@ -237,7 +237,7 @@ export class AddressController {
 
     try{
       const newAddress = await AppDataSource.manager.save(address);
-      res.status(200).json({ newAddress, success: true})
+      res.status(200).json({ id: newAddress.id, success: true})
     } catch (error){
       res.status(500).json({ error, success: false });
     };  

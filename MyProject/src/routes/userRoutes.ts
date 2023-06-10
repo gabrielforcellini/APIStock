@@ -5,7 +5,7 @@ import { checkToken } from '../helpers/checkToken';
 const userRouter = express.Router();
 
 // Create
-userRouter.post("/create", UserController.register);
+userRouter.post("/create/:establishment_id", UserController.create);
 
 // Find one
 userRouter.get("/find-one/:id", UserController.findOneById);

@@ -4,7 +4,7 @@ import { EstablishmentController } from '../controllers/EstablishmentController'
 const establishmentRouter = express.Router();
 
 // Create.
-establishmentRouter.post("/create", EstablishmentController.register);
+establishmentRouter.post("/create/:address_id", EstablishmentController.register);
 
 // Find one.
 establishmentRouter.get("/find-one/:id", EstablishmentController.findOneById);

@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm"
 import { Address } from "./Address/Address"
+import { Establishment } from "./Establishment"
 
 @Entity({ name: "user"})
 export class User {
-
     @PrimaryGeneratedColumn({ type: "integer"})
     id!: number
 
@@ -28,7 +28,7 @@ export class User {
     @Column({ type: "timestamp without time zone", nullable: true})
     update_date?: Date
 
-    @ManyToOne(type => Address, user => User, {eager: true})
-    @JoinColumn({ name : "address_id"})
-    address!: Address
+    @ManyToOne(type => Establishment, establishment => Establishment, {eager: true})
+    @JoinColumn({ name : "establishment_id"})
+    establishment!: Establishment
 };
