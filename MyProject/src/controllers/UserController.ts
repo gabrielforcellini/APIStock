@@ -150,6 +150,8 @@ export class UserController {
         return res.status(422).json({ message: "user not found!", success: false });
       };
 
+      console.log(userToUpdate);      
+
       const {
         name,
         lastname,
@@ -158,6 +160,8 @@ export class UserController {
         password,
         establishment
       } = req.body;
+
+      console.log(req.body);      
 
       const userRepository = AppDataSource.getRepository(User);
 
@@ -171,7 +175,9 @@ export class UserController {
         userToUpdate.mail = mail;
       };
       if (password) {
-        userToUpdate.password = password;
+        //create password
+        const salt = await bcrypt.genSalt(12);
+        userToUpdate.password = await bcrypt.hash(password, salt);
       };
       if (establishment) {
         userToUpdate.establishment = establishment;
