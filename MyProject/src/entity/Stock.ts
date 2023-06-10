@@ -10,9 +10,6 @@ export class Stock {
     @Column({ type: "character varying", length: 10})
     code!: string
 
-    @Column({ type: "integer"})
-    quantity!: number
-
     @ManyToOne(type => Establishment, stock => Establishment)
     @JoinColumn({ name: "establishment_id"})
     establishment: Establishment
