@@ -32,7 +32,6 @@ export class UserController {
 
       const establishmentRespository = AppDataSource.getRepository(Establishment)
       const establishment = await establishmentRespository.findOneBy({id: parseInt(establishment_id)});
-
       if(!establishment){ 
         return res.status(500).json({ message: "Estabelecimento não existe"})
       }
@@ -88,18 +87,20 @@ export class UserController {
     try {
       if (req.headers.authorization) {
         const token = getToken(req);
-
         const decoded = jwt.verify(token, SECRET) as { id: string };
 
         const userRepository = AppDataSource.getRepository(User);
-        const currentUser = await userRepository.findOneBy({ id: parseInt(decoded.id) });
+        const currentUser = await userRepository
+          .createQueryBuilder("user")
+          .select("user")
+          .where("id = :id", {id: decoded.id})
+          .getOne();
 
         currentUser.password = undefined;
 
         res.status(200).send(currentUser);
-      } else {
-        res.status(404).send({ error: "token required!", success: false });
-      };
+      }
+      res.status(404).send({ error: "token required!", success: false });
     } catch (error) {
       res.status(500).json({ error, success: false });
     };
@@ -148,22 +149,9 @@ export class UserController {
 
       if (!userToUpdate) {
         return res.status(422).json({ message: "user not found!", success: false });
-      };
+      };  
 
-      console.log(userToUpdate);      
-
-      const {
-        name,
-        lastname,
-        mail,
-        telephone,
-        password,
-        establishment
-      } = req.body;
-
-      console.log(req.body);      
-
-      const userRepository = AppDataSource.getRepository(User);
+      const { name, lastname, mail, telephone, password, establishment } = req.body;    
 
       if (name) {
         userToUpdate.name = name;
@@ -175,7 +163,6 @@ export class UserController {
         userToUpdate.mail = mail;
       };
       if (password) {
-        //create password
         const salt = await bcrypt.genSalt(12);
         userToUpdate.password = await bcrypt.hash(password, salt);
       };
@@ -186,7 +173,9 @@ export class UserController {
         userToUpdate.telephone = telephone;
       };
 
+      const userRepository = AppDataSource.getRepository(User);
       await userRepository.save(userToUpdate);
+
       res.status(200).json({ userToUpdate, success: true });
     } catch (error) {
       res.status(500).json({ error, success: false });
@@ -203,6 +192,7 @@ export class UserController {
         .from("user")
         .where("id = :id", {id: id})
         .execute()
+        
       await userRepository;
       res.status(200).json({ success: true });
     } catch (error) {
