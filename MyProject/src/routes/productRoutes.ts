@@ -4,7 +4,7 @@ import { ProductController } from '../controllers/ProductController';
 const productRouter = express.Router();
 
 // Create.
-productRouter.post("/create", ProductController.register);
+productRouter.post("/create/category=:category_id", ProductController.register);
 
 // Find one.
 productRouter.get("/find-one/:id", ProductController.findOne);

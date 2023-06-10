@@ -4,7 +4,7 @@ import { SupplierController } from '../controllers/SupplierController';
 const supplierRouter = express.Router();
 
 // Create.
-supplierRouter.post("/create", SupplierController.register);
+supplierRouter.post("/create/address=:address_id", SupplierController.register);
 
 // Find one.
 supplierRouter.get("/find-one/:id", SupplierController.findOneById);

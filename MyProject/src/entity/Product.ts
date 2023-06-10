@@ -35,7 +35,7 @@ export class Product {
     @Column({ type: "date", nullable: true })
     update_date?: Date
 
-    @ManyToOne(type => Category, products => Product, {eager: true})
+    @ManyToOne(type => Category, products => Product)
     @JoinColumn({ name: "category_id"})
     category!: Category;
 
