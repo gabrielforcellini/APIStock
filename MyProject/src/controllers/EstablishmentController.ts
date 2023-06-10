@@ -97,7 +97,7 @@ export class EstablishmentController {
 
     try {
       const establishmentRepository = AppDataSource.getRepository(Establishment);
-      const establishmentToDelete = await establishmentRepository
+      await establishmentRepository
         .createQueryBuilder("establishment")
         .delete()
         .from("establishment")
