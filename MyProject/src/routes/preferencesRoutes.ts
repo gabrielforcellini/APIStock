@@ -18,4 +18,7 @@ preferencesRouter.patch("/:id", PreferencesController.updateOne);
 // Delete
 preferencesRouter.delete("/:id", PreferencesController.delete);
 
+// Find one by User
+preferencesRouter.get("/find-one-by-user", PreferencesController.findOneByUser);
+
 export default preferencesRouter;

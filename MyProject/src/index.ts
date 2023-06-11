@@ -49,8 +49,6 @@ app.use("/stock-product", stockProductRouter);
 
 app.use("/preferences", preferencesRouter);
 
-app.use("/preferences", preferencesRouter);
-
 app.listen(api_port);
 console.log(`API listening on port ${api_port}`);
 
