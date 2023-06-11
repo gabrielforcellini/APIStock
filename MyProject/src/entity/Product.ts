@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
 import { Stock_Product } from "./Stock_Product";
 import { Stock } from "./Stock";
+import { Supplier } from "./Supplier";
 
 @Entity({ name: "product" })
 export class Product {

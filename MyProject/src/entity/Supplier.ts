@@ -30,6 +30,6 @@ export class Supplier {
     address!: Address
 
     @ManyToMany(type => Product)
-    @JoinTable({name: "supplier_product"})
+    @JoinTable({ name: "supplier_product"})
     products: Product[];
 };

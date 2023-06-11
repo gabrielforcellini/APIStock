@@ -8,4 +8,9 @@ supplierProductRouter.post(
     supplierProductController.associate
 );
 
+supplierProductRouter.get(
+    "/find-products-by/supplier=:supplier_id",
+    supplierProductController.findProductsBySupplier
+);
+
 export default supplierProductRouter;
