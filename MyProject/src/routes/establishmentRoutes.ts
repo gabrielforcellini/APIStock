@@ -7,15 +7,15 @@ const establishmentRouter = express.Router();
 establishmentRouter.post("/create/address=:address_id", EstablishmentController.register);
 
 // Find one.
-establishmentRouter.get("/find-one/:id", EstablishmentController.findOneById);
+establishmentRouter.get("/find-by/id=:id", EstablishmentController.findById);
 
 // Find All.
 establishmentRouter.get("/find-all", EstablishmentController.findAll);
 
 // Update.
-establishmentRouter.patch("/:id", EstablishmentController.updateOne);
+establishmentRouter.patch("/update/id=:id", EstablishmentController.updateOne);
 
 // Delete.
-establishmentRouter.delete("/:id", EstablishmentController.delete);
+establishmentRouter.delete("/delete/id=:id", EstablishmentController.delete);
 
 export default establishmentRouter;

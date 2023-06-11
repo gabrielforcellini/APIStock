@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { Category } from '../entity/Category';
 
 export class ProductController {
+  
   static async register(req: Request, res: Response) {
     const category_id  = req.params.category_id;
     const { name, part_number, bar_code, buy_price, sale_price, active_status, brand } = req.body;
@@ -45,7 +46,7 @@ export class ProductController {
     };
   };
 
-  static async findOne(req: Request, res: Response) {
+  static async findById(req: Request, res: Response) {
     const id = req.params.id;
 
     try {
@@ -62,6 +63,24 @@ export class ProductController {
       res.status(500).json({ error, success: false });
     };
   };
+
+  static async findByCategory(req: Request, res: Response){
+    const category_id = req.params.category_id;
+
+    try {
+      const productRepository = AppDataSource.getRepository(Product);
+      const product = await productRepository
+        .createQueryBuilder("product")
+        .select("product").addSelect("category")
+        .leftJoin("product.category", "category")
+        .where("category.id = :id", { id: category_id})
+        .getMany();
+
+      res.status(200).json({ product, success: true });
+    } catch (error) {
+      res.status(500).json({ error, success: false });
+    };
+  }
 
   static async findAll(req: Request, res: Response) {
     try {

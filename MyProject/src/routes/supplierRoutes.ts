@@ -6,16 +6,16 @@ const supplierRouter = express.Router();
 // Create.
 supplierRouter.post("/create/address=:address_id", SupplierController.register);
 
-// Find one.
-supplierRouter.get("/find-one/:id", SupplierController.findOneById);
-
 // Find All.
 supplierRouter.get("/find-all", SupplierController.findAll);
 
+// Find by Id.
+supplierRouter.get("/find-by/id=:id", SupplierController.findById);
+
 // Update.
-supplierRouter.patch("/:id", SupplierController.updateOne);
+supplierRouter.patch("/update/id=:id", SupplierController.updateOne);
 
 // Delete.
-supplierRouter.delete("/:id", SupplierController.delete);
+supplierRouter.delete("/delete/id=:id", SupplierController.delete);
 
 export default supplierRouter;
