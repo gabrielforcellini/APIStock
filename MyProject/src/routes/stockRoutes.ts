@@ -3,19 +3,22 @@ import { StockController } from "../controllers/StockController";
 
 const stockRouter = express.Router();
 
-// Create
-stockRouter.post("/create/establishment=:establishment_id", StockController.create);
-
-// Find one
-stockRouter.get("/find-one/:id", StockController.findOneById);
-
 // Find All
 stockRouter.get("/find-all", StockController.findAll);
 
+// Find one
+stockRouter.get("/find-by/id=:id", StockController.findOneById);
+
+// Find by Establishment
+stockRouter.get("/find-By/establishment=:establishment_id", StockController.findByEstablishment)
+
+// Create
+stockRouter.post("/create/establishment=:establishment_id", StockController.create);
+
 // Update
-stockRouter.patch("/:id/establishment=:establishment_id", StockController.updateOne);
+stockRouter.patch("/update/id=:id/establishment=:establishment_id", StockController.updateOne);
 
 // Delete
-stockRouter.delete("/:id", StockController.delete);
+stockRouter.delete("/delete/id=:id", StockController.delete);
 
 export default stockRouter;
