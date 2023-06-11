@@ -10,6 +10,7 @@ import categoryRouter from './routes/categoryRoutes';
 import establishmentRouter from './routes/establishmentRoutes';
 import addressRouter from "./routes/addressRoutes";
 import stockRouter from "./routes/stockRoutes";
+import stockProductRouter from "./routes/stockProductRoutes";
 
 const app = express();
 
@@ -43,7 +44,7 @@ app.use("/address", addressRouter);
 
 app.use("/stock", stockRouter);
 
-//app.use("/stock-product");
+app.use("/stock-product", stockProductRouter);
 
 app.listen(api_port);
 console.log(`API listening on port ${api_port}`);
