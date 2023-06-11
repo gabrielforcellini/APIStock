@@ -13,6 +13,7 @@ import { Product } from './entity/Product';
 import { Establishment } from './entity/Establishment';
 import { Category } from './entity/Category';
 import { Stock_Product } from "./entity/Stock_Product";
+import { Preferences } from './entity/Preferences';
 
 dotenv.config();
 
@@ -36,7 +37,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [User, Address, District, City, State, Country, Supplier, Stock, 
-        Product, Establishment, Category, Stock_Product],
+        Product, Establishment, Category, Stock_Product, Preferences],
     migrations: [],
     subscribers: [],
 });
