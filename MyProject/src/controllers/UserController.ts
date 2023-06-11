@@ -99,8 +99,9 @@ export class UserController {
         currentUser.password = undefined;
 
         res.status(200).send(currentUser);
+      } else {
+        res.status(404).send({ error: "token required!", success: false });
       }
-      res.status(404).send({ error: "token required!", success: false });
     } catch (error) {
       res.status(500).json({ error, success: false });
     };
