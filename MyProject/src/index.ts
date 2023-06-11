@@ -12,6 +12,7 @@ import addressRouter from "./routes/addressRoutes";
 import stockRouter from "./routes/stockRoutes";
 import stockProductRouter from "./routes/stockProductRoutes";
 import preferencesRouter from './routes/preferencesRoutes';
+import supplierProductRouter from "./routes/supplierProductRoutes";
 
 const app = express();
 
@@ -47,7 +48,7 @@ app.use("/stock", stockRouter);
 
 app.use("/stock-product", stockProductRouter);
 
-app.use("/preferences", preferencesRouter);
+app.use("/supplier-product", supplierProductRouter)
 
 app.use("/preferences", preferencesRouter);
 

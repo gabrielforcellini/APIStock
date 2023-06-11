@@ -31,5 +31,5 @@ export class Supplier {
 
     @ManyToMany(type => Product)
     @JoinTable({name: "supplier_product"})
-    products: Product;
+    products: Product[];
 };
