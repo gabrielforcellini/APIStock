@@ -139,9 +139,6 @@ export class UserController {
     };
   };
 
-  /**
-   * Update an user by token
-   */
   static async updateOne(req: Request, res: Response) {
     try {
       const token = getToken(req);

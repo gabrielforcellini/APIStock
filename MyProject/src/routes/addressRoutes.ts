@@ -1,6 +1,5 @@
 import express from "express";
 import { AddressController } from "../controllers/AddressController";
-import { checkToken } from '../helpers/checkToken';
 
 const addressRouter = express.Router();
 
