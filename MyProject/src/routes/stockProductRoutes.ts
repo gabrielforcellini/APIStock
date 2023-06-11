@@ -1,5 +1,4 @@
 import express from "express";
-import { Category } from "../entity/Category";
 import { stockProductController } from "../controllers/StockProductController";
 
 const stockProductRouter = express.Router();
@@ -18,6 +17,5 @@ stockProductRouter.get(
     "/find-products-by/stock=:stock_id",
     stockProductController.findProductsByStock
 )
-
 
 export default stockProductRouter;

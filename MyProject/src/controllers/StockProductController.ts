@@ -4,7 +4,6 @@ import { Stock_Product } from "../entity/Stock_Product";
 import { Stock } from "../entity/Stock";
 import { Product } from "../entity/Product";
 
-
 export class stockProductController {
 
     static async addToStock(req: Request, res: Response) {
