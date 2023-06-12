@@ -131,18 +131,12 @@ export class PreferencesController {
           .where("user.id = :id", { id: decoded.id })
           .getOne();
 
-        console.log('Usuario: ' + JSON.stringify(currentUser));
-
-        console.log('establishment: ' + currentUser.establishment);
-
         const preferencesRepository = AppDataSource.getRepository(Preferences);
         const currentPreferences = await preferencesRepository
           .createQueryBuilder("preferences")
           .select("preferences")
-          .where("preferences.establishment_id = :id", { id: currentUser.establishment })
+          .where("preferences.establishment_id = :id", { id: currentUser.establishment.id })
           .getOne();
-
-        console.log('Preferencias: ' + JSON.stringify(currentPreferences));
 
         res.status(200).json({ currentPreferences, success: true });
       } else {
