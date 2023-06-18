@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne } from "typeorm"
 import { Establishment } from "./Establishment"
 
 @Entity({ name: "preferences"})

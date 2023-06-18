@@ -25,7 +25,6 @@ app.use(
 
 app.use(express.json());
 
-// Solve cors
 app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
