@@ -18,4 +18,10 @@ supplierRouter.patch("/update/id=:id", SupplierController.updateOne);
 // Delete.
 supplierRouter.delete("/delete/id=:id", SupplierController.delete);
 
+//Find Products by Supplier
+supplierRouter.get("/find-products-by/supplier=:supplier_id", SupplierController.findProductsBySupplier)
+
+//Associate Product to Supplier
+supplierRouter.post("/assosciate/supplier=:supplier_id/product=:product_id", SupplierController.associate)
+
 export default supplierRouter;

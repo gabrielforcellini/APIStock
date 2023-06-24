@@ -25,7 +25,7 @@ export class PreferencesController {
       }
 
       const preferenceRepository = AppDataSource.getRepository(Preferences);
-      const preferenceExists = await preferenceRepository.findOneBy({ establishment: establishment });
+      const preferenceExists = await preferenceRepository.findOneBy({ id: establishment.id});
       if (preferenceExists) {
         return res.status(404).json({ message: "Preference already registered!", success: false });
       };

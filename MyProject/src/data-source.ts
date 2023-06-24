@@ -36,8 +36,7 @@ export const AppDataSource = new DataSource({
     database: database,
     synchronize: true,
     logging: false,
-    entities: [User, Address, District, City, State, Country, Supplier, Stock, 
-        Product, Establishment, Category, Stock_Product, Preferences],
+    entities: [User, Address, District, City, State, Country, Supplier, Stock, Product, Establishment, Category, Stock_Product, Preferences],
     migrations: [],
     subscribers: [],
 });
