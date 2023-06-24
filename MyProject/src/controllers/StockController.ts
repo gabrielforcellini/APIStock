@@ -54,6 +54,24 @@ export class StockController {
         };
     }
 
+    static async findByEstablishment(req: Request, res: Response){
+        const establishment_id = req.params.establishment_id;
+
+        try{
+            const stockRepository = AppDataSource.getRepository(Stock);
+            const stock = await stockRepository
+                .createQueryBuilder("stock")
+                .select("stock").addSelect("establishment.id")
+                .leftJoin("stock.establishment", "establishment")
+                .where("establishment.id = :id", { id: establishment_id})
+                .getMany();
+
+            res.status(201).json({ stock, success: true});
+        } catch(error){
+            res.status(500).json({ error, success: false });
+        }
+    }
+
     static async findAll(req: Request, res: Response){
         try {
             const stockRepository = AppDataSource.getRepository(Stock);

@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
 import { Stock_Product } from "./Stock_Product";
 import { Stock } from "./Stock";
+import { Supplier } from "./Supplier";
 
 @Entity({ name: "product" })
 export class Product {
@@ -29,10 +30,10 @@ export class Product {
     @Column({ type: "boolean", nullable: true })
     active_status?: boolean
 
-    @Column({ type: "date", nullable: true })
+    @Column({ type: "timestamp without time zone", nullable: true })
     create_date?: Date
 
-    @Column({ type: "date", nullable: true })
+    @Column({ type: "timestamp without time zone", nullable: true })
     update_date?: Date
 
     @ManyToOne(type => Category, products => Product)
@@ -41,4 +42,7 @@ export class Product {
 
     @OneToMany(type => Stock_Product, stock => Stock)
     stock_product: Stock_Product
+
+    @ManyToMany(type => Supplier, supplier => supplier.products)
+    suppliers: Supplier;
 };

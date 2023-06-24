@@ -37,7 +37,7 @@ export class EstablishmentController {
     };
   };
 
-  static async findOneById(req: Request, res: Response) {
+  static async findById(req: Request, res: Response) {
     const id = req.params.id;
 
     try {

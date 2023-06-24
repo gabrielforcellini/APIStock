@@ -1,6 +1,7 @@
 import { Entity, Column, JoinColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne } from "typeorm";
 import { Address } from "./Address/Address";
 import { Product } from "./Product";
+import { array } from "joi";
 
 @Entity({ name: "supplier"})
 export class Supplier {
@@ -29,7 +30,14 @@ export class Supplier {
     @JoinColumn({name: "address_id"})
     address!: Address
 
-    @ManyToMany(type => Product)
-    @JoinTable({name: "supplier_product"})
-    products: Product;
+    @ManyToMany(type => Product, product => product.suppliers, { cascade: true})
+    @JoinTable({ name: "supplier_product"})
+    products: Product[];
+
+    addProduct(product : Product){
+        //if(this.products == null){
+        //    this.products = new Array<Product>();
+        //}
+        this.products.push(product);
+    }
 };

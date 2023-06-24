@@ -1,21 +1,21 @@
 import express from "express";
 import { CategoryController } from '../controllers/CategoryController';
 
-const categoryRoutes = express.Router();
+const categoryRouter = express.Router();
 
 // Create
-categoryRoutes.post("/create", CategoryController.register);
+categoryRouter.post("/create", CategoryController.register);
 
 // Find one
-categoryRoutes.get("/find-one/:id", CategoryController.findOneById);
+categoryRouter.get("/find-one/:id", CategoryController.findOneById);
 
 // Find All
-categoryRoutes.get("/find-all", CategoryController.findAll);
+categoryRouter.get("/find-all", CategoryController.findAll);
 
 // Update
-categoryRoutes.patch("/:id", CategoryController.updateOne);
+categoryRouter.patch("/:id", CategoryController.updateOne);
 
 // Delete
-categoryRoutes.delete("/:id", CategoryController.delete);
+categoryRouter.delete("/:id", CategoryController.delete);
 
-export default categoryRoutes;
+export default categoryRouter;

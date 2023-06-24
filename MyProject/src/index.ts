@@ -1,15 +1,17 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
+import { conn } from './db/conn';
 // Api routes
 import userRouter from './routes/userRoutes';
 import supplierRouter from './routes/supplierRoutes';
 import productRouter from './routes/productRoutes';
-import categoryRoutes from './routes/categoryRoutes';
+import categoryRouter from './routes/categoryRoutes';
 import establishmentRouter from './routes/establishmentRoutes';
-import { conn } from './db/conn';
 import addressRouter from "./routes/addressRoutes";
 import stockRouter from "./routes/stockRoutes";
+import stockProductRouter from "./routes/stockProductRoutes";
+import preferencesRouter from './routes/preferencesRoutes';
 
 const app = express();
 
@@ -22,7 +24,6 @@ app.use(
 
 app.use(express.json());
 
-// Solve cors
 app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
@@ -37,11 +38,15 @@ app.use("/product", productRouter);
 
 app.use("/establishment", establishmentRouter);
 
-app.use("/category", categoryRoutes);
+app.use("/category", categoryRouter);
 
 app.use("/address", addressRouter);
 
 app.use("/stock", stockRouter);
+
+app.use("/stock-product", stockProductRouter);
+
+app.use("/preferences", preferencesRouter);
 
 app.listen(api_port);
 console.log(`API listening on port ${api_port}`);
