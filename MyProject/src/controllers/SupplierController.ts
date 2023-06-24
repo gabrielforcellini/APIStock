@@ -138,7 +138,7 @@ export class SupplierController {
     };
   };
 
-  static async associate(req: Request, res: Response) {
+  static async associatingProducts(req: Request, res: Response) {
     const supplier_id = req.params.supplier_id;
     const product_id = req.params.product_id;
 
